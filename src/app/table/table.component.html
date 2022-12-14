@@ -1,0 +1,14 @@
+<table style="min-height: 100px;"  [ngStyle]="{ 'background-color': BgColor }"> 
+    <thead>
+        <tr>
+            <th *ngFor="let data of Headings">{{data}}</th>
+            <th><app-button [Title]="'All songs'" (songs)="goToSongs($event,'data')"></app-button></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of Info">
+            <td *ngFor="let data of row">{{data}}</td>
+            <td><app-button [Title]="'Solo'" (songs)="goToSongs($event,'data')"></app-button></td>
+        </tr>
+    </tbody>
+</table>

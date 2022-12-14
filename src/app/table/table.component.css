@@ -1,0 +1,10 @@
+table{
+    width: 420px;
+}
+th,td{
+    width: 140px;
+    text-align: center;
+}
+table,th,td{
+    border:1px solid black;
+}
