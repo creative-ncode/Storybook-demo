@@ -60,7 +60,7 @@
         },
         {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-b90d242679df8645f551ac9ffdde9b642c44938be4361eea3e154288275514062e134ac8d04959816559e3a4ed413c905072b46e8910fb2c10424d4f394c5ed4",
+            "id": "component-ButtonComponent-5c012ddff84ca5b06f8ec7f209099563e10187748af0409d609fa25f32c796011672112532903ce29b6032bbe6b1c160d6eedbdec1aef783902c412c69cd971c",
             "file": "src/app/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -88,7 +88,7 @@
             ],
             "outputsClass": [
                 {
-                    "name": "songs",
+                    "name": "action",
                     "defaultValue": "new EventEmitter<Event>()",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -116,7 +116,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'app-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.css']\n})\nexport class ButtonComponent implements OnInit {\n  @Input() Title : any;\n  @Output() songs = new EventEmitter<Event>();\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'app-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.css']\n})\nexport class ButtonComponent implements OnInit {\n  @Input() Title : any;\n  @Output() action = new EventEmitter<Event>();\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -136,11 +136,146 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<button type=\"button\" (click)=\"songs.emit($event)\">{{Title}}</button>\n"
+            "templateData": "<button type=\"button\" (click)=\"action.emit($event)\">{{Title}}</button>\n"
+        },
+        {
+            "name": "CalenderComponent",
+            "id": "component-CalenderComponent-1fe06d233216cf302fbff9e49b90564f125d064ac04ce3e9ac7e35306440af4e368aeeb9d1818646817b8e61d5a555ee215386c70a706fda54ac9f3e3d188219",
+            "file": "src/app/calender/calender.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-calender",
+            "styleUrls": [
+                "./calender.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./calender.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "twelveHours",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 14,
+                    "type": "boolean",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "canSelect",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "selectedMoments",
+                    "defaultValue": "[new Date(), new Date()]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 17,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "selectDateRange",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "value",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "value",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit,Input, EventEmitter,Output,ViewChild,ElementRef } from '@angular/core';\nimport * as moment from 'moment';\nimport '../../assets/scripts.js';\n\n@Component({\n  selector: 'app-calender',\n  templateUrl: './calender.component.html',\n  styleUrls: ['./calender.component.css']\n})\nexport class CalenderComponent implements OnInit {\n  selectedMoments : any=[new Date(), new Date()];\n  canSelect : boolean = false;\n  @Input()\n  twelveHours!: boolean;\n  constructor() { }\n\n  ngOnInit() { \n    // this.selectedMoments = [new Date(), new Date()];\n  }\n\n  selectDateRange(event: any, value: any) {\n    this.canSelect = true;\n    let start = new Date();\n    let end = new Date();\n    switch (value) {\n      case 'Last 7 Days':\n        start.setDate(end.getDate() - 6)\n        this.selectedMoments = [new Date(start), new Date(end)];\n        break;\n      case 'Last 14 Days':\n        start.setDate(end.getDate() - 13)\n        this.selectedMoments = [new Date(start), new Date(end)];\n        break;\n      case 'Last 30 Days':\n        start.setDate(end.getDate() - 29)\n        this.selectedMoments = [new Date(start), new Date(end)];\n        break;\n      case 'Last 6 Months':\n        start.setDate(end.getDate() - 179)\n        this.selectedMoments = [new Date(start), new Date(end)];\n        break;\n      case 'Last Year':\n        start.setDate(end.getDate() - 364)\n        this.selectedMoments = [new Date(start), new Date(end)];\n        break;\n      case 'Custom':\n        this.selectedMoments = [new Date(start), new Date(end)];\n        break;\n    }\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "input{\n    width: 300px;\n}\nlabel{\n    margin-left: 100px;\n}\n.list{\n    margin-left: 55px;\n    display: flex;\n    flex-direction: column;\n    margin-top: 20px;\n    width: 150px;\n    align-items: center;\n    justify-content: center;\n    align-content: center;\n}\napp-options{\n    height: 30px;\n    width: 100%;\n}",
+                    "styleUrl": "./calender.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 14
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<!-- <div style=\"text-align:center;\">\n<input type=\"text\" name=\"daterange\" value=\"01/01/2018 - 01/15/2018\" />\n</div> -->\n\n<div class=\"input-wrapper\">\n  <label>Date Time Range:</label>\n  <input [(ngModel)]=\"selectedMoments\" [selectMode]=\"'range'\"\n         [owlDateTimeTrigger]=\"dtPicker3\" [owlDateTime]=\"dtPicker3\">\n  <owl-date-time #dtPicker3 [disabled]=\"!canSelect\" [hour12Timer]=\"twelveHours\"></owl-date-time>\n  <div class=\"list\">\n    <app-options [Title]=\"'Last 7 Days'\" (action)=\"selectDateRange($event,'Last 7 Days')\"></app-options>\n    <app-options [Title]=\"'Last 14 Days'\" (action)=\"selectDateRange($event,'Last 14 Days')\"></app-options>\n    <app-options [Title]=\"'Last 30 Days'\" (action)=\"selectDateRange($event,'Last 30 Days')\"></app-options>\n    <app-options [Title]=\"'Last 6 Months'\" (action)=\"selectDateRange($event,'Last 6 Months')\"></app-options>\n    <app-options [Title]=\"'Last Year'\" (action)=\"selectDateRange($event,'Last Year')\"></app-options>\n    <app-options [Title]=\"'Custom'\" (action)=\"selectDateRange($event,'Custom')\"></app-options>\n  </div>\n</div>"
         },
         {
             "name": "HomeComponent",
-            "id": "component-HomeComponent-fc7ad66db324003a87b4d694ff4b589db7f4f84cafe3773171abd273c8e15235a59141e5f9d851528500a66bf77bdd52609f1c95a21e4da732839101f71ff1a6",
+            "id": "component-HomeComponent-9b2188600f1caeef520986f345e8e00c8b965d16ad48392c5035d1652233a08b10b71a3935334c912404bd7a9a4f763ab90d9d106549693eef7fb62a15901444",
             "file": "src/app/home/home.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -167,7 +302,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 11
+                    "line": 17
                 },
                 {
                     "name": "data",
@@ -180,6 +315,25 @@
                     "line": 10
                 },
                 {
+                    "name": "endDate",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "hasTime",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
                     "name": "heading",
                     "defaultValue": "[]",
                     "deprecated": false,
@@ -188,6 +342,43 @@
                     "optional": false,
                     "description": "",
                     "line": 9
+                },
+                {
+                    "name": "isRange",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "maxDate",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "minDate",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "startDate",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
                 }
             ],
             "methodsClass": [
@@ -197,7 +388,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 14,
+                    "line": 20,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -209,7 +400,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-home',\n  templateUrl: './home.component.html',\n  styleUrls: ['./home.component.css']\n})\nexport class HomeComponent implements OnInit {\n  heading : any = [];\n  data : any = [];\n  color = 'beige';\n  constructor() { }\n\n  ngOnInit() {\n    this.heading = ['Name','Age','Position'];\n    this.data = [['Kim Namjoon','28','Rapper'],['Kim SeokJin','30','Vocalist'],['Min Yoongi','29','Rapper']]\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-home',\n  templateUrl: './home.component.html',\n  styleUrls: ['./home.component.css']\n})\nexport class HomeComponent implements OnInit {\n  heading : any = [];\n  data : any = [];\n  isRange: boolean = true;\n  hasTime: boolean = true;\n  startDate: any;\n  endDate: any;\n  maxDate: any;\n  minDate: any;\n  color = 'beige';\n  constructor() { }\n\n  ngOnInit() {\n    this.heading = ['Name','Age','Position'];\n    this.data = [['Kim Namjoon','28','Rapper'],['Kim SeokJin','30','Vocalist'],['Min Yoongi','29','Rapper']]\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -224,12 +415,92 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "args": [],
-                "line": 11
+                "line": 17
             },
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<h3 style=\"text-align:center;\">Home</h3>\n<app-table [Headings]=\"heading\" [Info]=\"data\" [BgColor]=\"color\"\n></app-table>"
+            "templateData": "<h3 style=\"text-align:center;\">Home</h3>\n<!-- <app-table [Headings]=\"heading\" [Info]=\"data\" [BgColor]=\"color\"\n></app-table> -->\n<!-- <app-calender>\n    [isRange]=\"isRange\"\n    [hasTime]=\"hasTime\"\n    [startDate]=\"startDate\"\n    [endDate]=\"endDate\"\n    [maxDate]=\"maxDate\"\n    [minDate]=\"minDate\"\n</app-calender> -->\n<app-calender [twelveHours]=\"true\">\n</app-calender>"
+        },
+        {
+            "name": "OptionsComponent",
+            "id": "component-OptionsComponent-b56313d38024aa49c4b977e3ae7aff9d17048556ecc327eb08fc029e3b20fae0eaf12e61ee831c2ffa673052a9de52970df431301275a42c33b57008abf2890e",
+            "file": "src/app/options/options.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-options",
+            "styleUrls": [
+                "./options.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./options.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "Title",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 9,
+                    "type": "any",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "action",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 10,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 13,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'app-options',\n  templateUrl: './options.component.html',\n  styleUrls: ['./options.component.css']\n})\nexport class OptionsComponent implements OnInit {\n  @Input() Title : any;\n  @Output() action = new EventEmitter<Event>();\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "span{\n    color: black;\n    font-size: 16px;\n    cursor: pointer;\n    width: 100%;\n    display:flex;\n    align-items: center;\n    justify-content: center;\n    border: 1px solid #3f51b5;\n    background-color: rgba(63,81,181,.2);\n}",
+                    "styleUrl": "./options.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 10
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<span (click)=\"action.emit($event)\">{{Title}}</span>"
         },
         {
             "name": "TableComponent",
@@ -386,13 +657,13 @@
     "modules": [
         {
             "name": "AppModule",
-            "id": "module-AppModule-0ee2f3ac0baab9043758cb5439d820022faf8c459b0762d6fad0bf42a1730f173ed4e0d0606bc6017f9306ff9dcd1149ebc129b01680a7afcf0ecbfefa995326",
+            "id": "module-AppModule-80a23aac3b0ff9d94fe8cd72fea3438a654a93f3796a7c1c90ac12714b4cad6bd6c5c624392b5928acabd1515dcf0450d0e8ade5fa67b244388c1231c5aab5ae",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport TableComponent from './table/table.component';\nimport { ButtonComponent } from './button/button.component';\nimport { HomeComponent } from './home/home.component';\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    TableComponent,\n    ButtonComponent,\n    HomeComponent\n  ],\n  imports: [\n    BrowserModule,\n    AppRoutingModule\n  ],\n  providers: [],\n  bootstrap: [AppComponent]\n})\nexport class AppModule { }\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\nimport { MatDatepickerModule } from '@angular/material/datepicker';\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport TableComponent from './table/table.component';\nimport { ButtonComponent } from './button/button.component';\nimport { HomeComponent } from './home/home.component';\nimport { CalenderComponent } from './calender/calender.component';\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport {MatNativeDateModule} from '@angular/material/core';\nimport { FormsModule } from '@angular/forms';\nimport { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';\nimport { OptionsComponent } from './options/options.component';\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    TableComponent,\n    ButtonComponent,\n    HomeComponent,\n    CalenderComponent,\n    OptionsComponent\n  ],\n  imports: [\n    BrowserModule,\n    AppRoutingModule,\n    BrowserAnimationsModule,\n    MatDatepickerModule,\n    MatFormFieldModule,\n    MatInputModule,\n    MatNativeDateModule,\n    FormsModule,\n    OwlDateTimeModule,\n    OwlNativeDateTimeModule\n  ],\n  providers: [\n    MatDatepickerModule\n  ],\n  bootstrap: [AppComponent]\n})\nexport class AppModule { }\n",
             "children": [
                 {
                     "type": "providers",
@@ -408,7 +679,13 @@
                             "name": "ButtonComponent"
                         },
                         {
+                            "name": "CalenderComponent"
+                        },
+                        {
                             "name": "HomeComponent"
+                        },
+                        {
+                            "name": "OptionsComponent"
                         },
                         {
                             "name": "TableComponent"
@@ -443,13 +720,13 @@
         },
         {
             "name": "AppRoutingModule",
-            "id": "module-AppRoutingModule-4e7630d107f7ba14079d6982e89e103145853af3d63771f05f5fb06c81a8aaf743abe866c9033bd32d333e4ac48802c77dbf83fb303742db59620004065663d7",
+            "id": "module-AppRoutingModule-5bd4db0c34ec08d59968ce22eccc7384fd21ac97d29e8dd706e2280b61175871e296bf6b4d1319d11eb6bba1ffdd863cda2192cbadb580daf36b36f4d5c3b615",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport TableComponent from './table/table.component';\nimport { HomeComponent } from './home/home.component';\n\nconst routes: Routes = [\n  { path :  '' , component : HomeComponent},\n  { path : 'table', component : TableComponent },\n  { path : 'home', component : HomeComponent}\n];\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport TableComponent from './table/table.component';\nimport { HomeComponent } from './home/home.component';\nimport { CalenderComponent } from './calender/calender.component';\nconst routes: Routes = [\n  { path :  '' , component : HomeComponent},\n  { path : 'table', component : TableComponent },\n  { path : 'home', component : HomeComponent},\n  { path : 'calender', component : CalenderComponent}\n];\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }\n",
             "children": [
                 {
                     "type": "providers",
@@ -511,6 +788,16 @@
                 "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
             },
             {
+                "name": "Custom",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/options/options.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -535,6 +822,56 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/button/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Last14Days",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/options/options.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Last30Days",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/options/options.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Last6Months",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/options/options.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Last7Days",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/options/options.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "LastYear",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/options/options.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -573,11 +910,61 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/calender/calender.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<CalenderComponent>",
+                "defaultValue": "(args: CalenderComponent) => ({\n    props: args,\n  })"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/options/options.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<OptionsComponent>",
+                "defaultValue": "(args: OptionsComponent) => ({\n    props: args,\n  })"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/table/table.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<TableComponent>",
                 "defaultValue": "(args: TableComponent) => ({\n    props: args,\n  })"
+            },
+            {
+                "name": "TwelveHoursFormat",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/calender/calender.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TwentyFourHoursFormat",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/calender/calender.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Txt",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/table/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             }
         ],
         "functions": [],
@@ -614,6 +1001,16 @@
                     "deprecationMessage": "",
                     "type": "Story<TableComponent>",
                     "defaultValue": "(args: TableComponent) => ({\n    props: args,\n  })"
+                },
+                {
+                    "name": "Txt",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/table/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
                 }
             ],
             "src/test.ts": [
@@ -635,6 +1032,78 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type"
+                }
+            ],
+            "src/app/options/options.stories.ts": [
+                {
+                    "name": "Custom",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/options/options.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Last14Days",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/options/options.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Last30Days",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/options/options.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Last6Months",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/options/options.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Last7Days",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/options/options.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "LastYear",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/options/options.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/options/options.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<OptionsComponent>",
+                    "defaultValue": "(args: OptionsComponent) => ({\n    props: args,\n  })"
                 }
             ],
             "src/environments/environment.prod.ts": [
@@ -692,6 +1161,38 @@
                     "type": "Story<ButtonComponent>",
                     "defaultValue": "(args: ButtonComponent) => ({\n    props: args,\n  })"
                 }
+            ],
+            "src/app/calender/calender.stories.ts": [
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/calender/calender.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<CalenderComponent>",
+                    "defaultValue": "(args: CalenderComponent) => ({\n    props: args,\n  })"
+                },
+                {
+                    "name": "TwelveHoursFormat",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/calender/calender.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "TwentyFourHoursFormat",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/calender/calender.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                }
             ]
         },
         "groupedFunctions": {},
@@ -719,6 +1220,10 @@
                     {
                         "path": "home",
                         "component": "HomeComponent"
+                    },
+                    {
+                        "path": "calender",
+                        "component": "CalenderComponent"
                     }
                 ],
                 "kind": "module"
@@ -778,12 +1283,130 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/calender/calender.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "CalenderComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/calender/calender.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/calender/calender.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TwelveHoursFormat",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/calender/calender.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TwentyFourHoursFormat",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/home/home.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "HomeComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/12",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/options/options.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "OptionsComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/options/options.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Custom",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/options/options.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Last14Days",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/options/options.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Last30Days",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/options/options.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Last6Months",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/options/options.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Last7Days",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/options/options.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LastYear",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/options/options.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -821,6 +1444,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/table/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Txt",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

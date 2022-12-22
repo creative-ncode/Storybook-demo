@@ -1,0 +1,11 @@
+span{
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #3f51b5;
+    background-color: rgba(63,81,181,.2);
+}

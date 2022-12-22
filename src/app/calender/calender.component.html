@@ -1,0 +1,18 @@
+<!-- <div style="text-align:center;">
+<input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+</div> -->
+
+<div class="input-wrapper">
+  <label>Date Time Range:</label>
+  <input [(ngModel)]="selectedMoments" [selectMode]="'range'"
+         [owlDateTimeTrigger]="dtPicker3" [owlDateTime]="dtPicker3">
+  <owl-date-time #dtPicker3 [disabled]="!canSelect" [hour12Timer]="twelveHours"></owl-date-time>
+  <div class="list">
+    <app-options [Title]="'Last 7 Days'" (action)="selectDateRange($event,'Last 7 Days')"></app-options>
+    <app-options [Title]="'Last 14 Days'" (action)="selectDateRange($event,'Last 14 Days')"></app-options>
+    <app-options [Title]="'Last 30 Days'" (action)="selectDateRange($event,'Last 30 Days')"></app-options>
+    <app-options [Title]="'Last 6 Months'" (action)="selectDateRange($event,'Last 6 Months')"></app-options>
+    <app-options [Title]="'Last Year'" (action)="selectDateRange($event,'Last Year')"></app-options>
+    <app-options [Title]="'Custom'" (action)="selectDateRange($event,'Custom')"></app-options>
+  </div>
+</div>

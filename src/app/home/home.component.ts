@@ -8,6 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   heading : any = [];
   data : any = [];
+  isRange: boolean = true;
+  hasTime: boolean = true;
+  startDate: any;
+  endDate: any;
+  maxDate: any;
+  minDate: any;
   color = 'beige';
   constructor() { }
 
